@@ -33,3 +33,6 @@
 .plan_cache.json
 .rerun.json
 bolt-debug.log
+/.vscode/
+/.devcontainer/
+.ruby-version

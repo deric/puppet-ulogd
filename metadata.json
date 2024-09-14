@@ -5,7 +5,6 @@
   "summary": "Manage user-space logging daemon",
   "license": "Apache-2.0",
   "source": "https://github.com/deric/puppet-ulogd",
-  "source": "https://github.com/deric/puppet-ulogd",
   "project_page": "https://github.com/deric/puppet-ulogd",
   "issues_url": "https://github.com/deric/puppet-ulogd/issues",
   "dependencies": [
