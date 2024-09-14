@@ -7,6 +7,7 @@
 # @param service_name
 # @param service_ensure
 # @param config_path
+# @param config Configuration as a Hash
 #
 # @example
 #   include ulogd
@@ -19,13 +20,13 @@ class ulogd (
   String               $service_ensure,
   Stdlib::Absolutepath $config_path,
   Ulogd::Config        $config = {}
-  ){
+) {
   include ulogd::install
 
   file { $config_path:
     ensure  => file,
     content => epp("${module_name}/config.epp", { 'config' => $config }),
-    require => Class['Ulogd::Install']
+    require => Class['Ulogd::Install'],
   }
 
   if $manage_service {
@@ -36,5 +37,4 @@ class ulogd (
       subscribe => File[$config_path],
     }
   }
-
 }
