@@ -30,9 +30,9 @@ class ulogd (
   file { $config_path:
     ensure  => file,
     content => epp("${module_name}/config.epp", {
-      'config'      => $config,
-      'plugin_path' => $plugin_path,
-      'plugins'     => $plugins,
+        'config'      => $config,
+        'plugin_path' => $plugin_path,
+        'plugins'     => $plugins,
     }),
     require => Class['Ulogd::Install'],
   }
