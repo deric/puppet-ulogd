@@ -1,1 +1,30 @@
---- {}
+---
+lookup_options:
+  ulogd::config:
+    merge:
+      strategy: deep
+ulogd::manage_package: true
+ulogd::manage_service: true
+ulogd::service_name: ulogd2
+ulogd::service_ensure: running
+ulogd::package_ensure: installed
+ulogd::config_path: /etc/ulogd.conf
+ulogd::packages:
+  - ulogd2
+ulogd::config:
+  global:
+    # logfile for status messages
+    logfile: syslog
+    # loglevel: debug(1), info(3), notice(5), error(7) or fatal(8) (default 5)
+    loglevel: 3
+    # this is a stack for logging packet send by system via LOGEMU
+    stack: log1:NFLOG,base1:BASE,ifi1:IFINDEX,ip2str1:IP2STR,print1:PRINTPKT,emu1:LOGEMU
+  # Logging of system packet through NFLOG
+  log1:
+    # netlink multicast group (the same as the iptables --nflog-group param)
+    # Group O is used by the kernel to log connection tracking invalid message
+    group: 0
+  # packet logging through NFLOG for group 1
+  log2:
+    # netlink multicast group (the same as the iptables --nflog-group param)
+    group: 1 # Group has to be different from the one use in log1
