@@ -9,6 +9,7 @@ ulogd::service_name: ulogd2
 ulogd::service_ensure: running
 ulogd::package_ensure: installed
 ulogd::config_path: /etc/ulogd.conf
+ulogd::plugin_path: /usr/lib/x86_64-linux-gnu/ulogd
 ulogd::packages:
   - ulogd2
 ulogd::config:

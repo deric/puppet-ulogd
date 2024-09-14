@@ -6,6 +6,8 @@
 # @param manage_service
 # @param service_name
 # @param service_ensure
+# @param plugin_path
+# @param plugins If empty, all plugins will be loaded
 # @param config_path
 # @param config Configuration as a Hash
 #
@@ -19,13 +21,19 @@ class ulogd (
   String               $service_name,
   String               $service_ensure,
   Stdlib::Absolutepath $config_path,
-  Ulogd::Config        $config = {}
+  Stdlib::Absolutepath $plugin_path,
+  Array[String]        $plugins = [],
+  Ulogd::Config        $config = {},
 ) {
   include ulogd::install
 
   file { $config_path:
     ensure  => file,
-    content => epp("${module_name}/config.epp", { 'config' => $config }),
+    content => epp("${module_name}/config.epp", {
+      'config'      => $config,
+      'plugin_path' => $plugin_path,
+      'plugins'     => $plugins,
+    }),
     require => Class['Ulogd::Install'],
   }
 

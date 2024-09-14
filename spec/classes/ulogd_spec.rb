@@ -10,4 +10,14 @@ describe 'ulogd' do
   it { is_expected.to contain_package('ulogd2').with_ensure(%r{present|installed}) }
   it { is_expected.to contain_service('ulogd2').with_ensure(%r{running}) }
   it { is_expected.to contain_file('/etc/ulogd.conf').with_content(%r{^\[global\]\nlogfile=syslog$}) }
+
+  context 'with plugins' do
+    let(:params) do
+      {
+        plugins: ['ulogd_inppkt_NFLOG.so']
+      }
+    end
+
+    it { is_expected.to contain_file('/etc/ulogd.conf').with_content(%r{^plugin="/usr/lib/x86_64-linux-gnu/ulogd/ulogd_inppkt_NFLOG.so"$}) }
+  end
 end

@@ -1,6 +1,13 @@
-<% | Ulogd::Config $config | -%>
+<% | Ulogd::Config $config, -%>
+<% Stdlib::Absolutepath $plugin_path, -%>
+<% Array[String] $plugins | -%>
 <% $config.each |String $section, $hash| { -%>
 [<%= $section %>]
+<% if ($section == 'global') { -%>
+<% $plugins.each |String $plugin| { -%>
+plugin="<%= $plugin_path %>/<%= $plugin %>"
+<%   } -%>
+<% } -%>
 <% $hash.each |String $key, $value| { -%>
 <%= $key %>=<% if (' ' in $value) { -%>"<%= $value %>"<% } else { -%><%= $value %><% } %>
 <% } %>
